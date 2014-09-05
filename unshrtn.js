@@ -54,7 +54,9 @@
         return callback(null, long);
       } else {
         try {
-          return request.get(short, function(error, r, body) {
+          return request.get(short, {
+            timeout: 10000
+          }, function(error, r, body) {
             if (error) {
               return callback(String(error), null);
             } else if (r.statusCode !== 200) {

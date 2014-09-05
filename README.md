@@ -1,6 +1,7 @@
 # unshrtn
 
-unshrtn is a small [leveldb][1] backed URL unshortening microservice for node:
+unshrtn is a small [leveldb][1] backed URL unshortening microservice written
+for [node][2]:
 
     % node unshrtn.js &
 
@@ -23,5 +24,6 @@ unshrtn is a small [leveldb][1] backed URL unshortening microservice for node:
 
 
 [1]: https://code.google.com/p/leveldb/
+[2]: http://nodejs.org
 
 

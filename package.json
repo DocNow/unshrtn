@@ -7,7 +7,7 @@
   "repository": "https://github.com/edsu/shrtn",
   "dependencies": {
     "express": "latest",
-    "async": "latest",
+    "request": "latest",
     "level": "latest"
   },
   "devDependencies": {

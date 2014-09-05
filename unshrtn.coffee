@@ -44,7 +44,7 @@ unshorten = (short, db, callback) ->
       callback null, long
     else
       try
-        request.get short, (error, r, body) ->
+        request.get short, timeout: 10000, (error, r, body) ->
           if error
             callback String(error), null
           else if r.statusCode != 200
