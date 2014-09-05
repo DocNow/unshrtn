@@ -1,5 +1,7 @@
 # unshrtn
 
+[![Build Status](https://secure.travis-ci.org/edsu/unshrtn.png)](http://travis-ci.org/edsu/unshrtn)
+
 unshrtn is a small [leveldb][1] backed URL unshortening microservice written
 for [node][2]:
 
