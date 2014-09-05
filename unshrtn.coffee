@@ -3,6 +3,8 @@ express = require 'express'
 request = require 'request'
 
 app = express()
+app.set 'json spaces', 2
+
 db = level('./unshrtndb')
 
 # the microservice route
