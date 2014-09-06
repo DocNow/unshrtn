@@ -23,10 +23,6 @@ short URL twice.
     }
 
 
-(twarc)ubuntu@ip-10-39-110-115:~$ python x.py
-https://www.youtube.com/watch?v=UMAUgRfzJDU&feature=youtu.be
-0:00:00.022468
-
 ## License:
 
 * [CC0](LICENSE) public domain dedication
