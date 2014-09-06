@@ -4,6 +4,7 @@ request = require 'request'
 
 app = express()
 app.set 'json spaces', 2
+userAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.67 Safari/537.36"
 
 db = level('./unshrtndb')
 jar = request.jar()
@@ -46,7 +47,12 @@ unshorten = (short, db, callback) ->
       callback null, long
     else
       try
-        request.get short, jar: jar, timeout: 10000, (error, r, body) ->
+        opts =
+          url: short
+          jar: jar
+          timeout: 10000
+          headers: {"User-Agent": userAgent}
+        request.get opts, (error, r, body) ->
           if error
             callback String(error), null
           else if r.statusCode != 200
@@ -56,6 +62,7 @@ unshorten = (short, db, callback) ->
             db.put short, String(long)
             callback null, long
       catch error
+        console.log error
         callback error, null
 
 
