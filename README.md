@@ -3,7 +3,9 @@
 [![Build Status](https://secure.travis-ci.org/edsu/unshrtn.png)](http://travis-ci.org/edsu/unshrtn)
 
 unshrtn is a small [leveldb][1] backed URL unshortening microservice written
-for [node][2]:
+for [node][2].  It's a tiny web service you can use from wherever you want, 
+which will save you the trouble of going out to the Web to look up the same 
+short URL twice. 
 
     % node unshrtn.js &
 
@@ -19,6 +21,11 @@ for [node][2]:
       "long": null,
       "error": "HTTP 404"
     }
+
+
+(twarc)ubuntu@ip-10-39-110-115:~$ python x.py
+https://www.youtube.com/watch?v=UMAUgRfzJDU&feature=youtu.be
+0:00:00.022468
 
 ## License:
 

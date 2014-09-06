@@ -6,6 +6,8 @@ app = express()
 app.set 'json spaces', 2
 
 db = level('./unshrtndb')
+jar = request.jar()
+process.setMaxListeners(10)
 
 # the microservice route
 
@@ -44,7 +46,7 @@ unshorten = (short, db, callback) ->
       callback null, long
     else
       try
-        request.get short, timeout: 10000, (error, r, body) ->
+        request.get short, jar: jar, timeout: 10000, (error, r, body) ->
           if error
             callback String(error), null
           else if r.statusCode != 200
