@@ -1,6 +1,15 @@
 level = require 'level'
+stream = require 'stream'
 express = require 'express'
 request = require 'request'
+
+# a writer that simply closes the response instead of streaming 
+# it all into memory, and possibly causing a memory leak
+
+class EmptyWriter extends stream.Writable
+  _write: (b) ->
+  _transform: (x) ->
+    this.end()
 
 app = express()
 app.set 'json spaces', 2
@@ -52,17 +61,19 @@ unshorten = (short, db, callback) ->
           jar: jar
           timeout: 10000
           headers: {"User-Agent": userAgent}
-        request.get opts, (error, r, body) ->
-          if error
-            callback String(error), null
-          else if r.statusCode != 200
-            callback "HTTP #{r.statusCode}", null
+
+        w = new EmptyWriter
+        r = request opts
+        r.on 'response', (resp) ->
+          if resp.statusCode != 200
+            callback "HTTP #{resp.statusCode}", null
           else
-            long = String(r.request.uri.href)
+            long = String(resp.request.uri.href)
             db.put short, String(long)
             callback null, long
+        r.pipe(w)
+
       catch error
-        console.log error
         callback error, null
 
 
