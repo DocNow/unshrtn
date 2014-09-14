@@ -17,10 +17,13 @@ app.get "/", (req, res) ->
     lookup short, (error, long) ->
       if error
         console.log "Error: #{error} - #{short} -> #{long}"
-        res.json
-          short: short,
-          long: long,
-          error: error
+        try
+          res.json
+            short: short,
+            long: long,
+            error: error
+        catch error
+          console.log "unable to send response: #{error}"
       else
         console.log "#{short} -> #{long}"
         res.json
@@ -35,17 +38,17 @@ app.get "/", (req, res) ->
 
 lookup = (short, next) ->
   if short == null
-    callback "short url cannot be null", null
+    next "short url cannot be null", null
     return
   short = String(short)
   db.get short, (err, long) ->
     if not err
-      callback null, long
+      next null, long
     else
       unshorten short, (err, long) ->
         if not err
           db.put short, long, (e) ->
-          if e
+          if err
             console.log "unable to write to leveldb:", e
         next err, long
 
