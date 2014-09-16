@@ -5,7 +5,7 @@
 unshrtn is a small [leveldb][1] backed URL unshortening microservice written
 for [node][2].  It's a tiny web service you can use from wherever you want, 
 which will save you the trouble of going out to the Web to look up the same 
-short URL twice. 
+short URL twice, which can be handy when you are unshortening a bunch of URLs.
 
     % node unshrtn.js &
 
