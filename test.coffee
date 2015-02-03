@@ -17,7 +17,7 @@ describe 'unshrtn', ->
 
   it 'handles bad protocol', (done) ->
     u 'foo', (err, long) ->
-      assert.equal err, 'Error: Invalid protocol: null'
+      assert.equal err, 'Error: Invalid URI "foo"'
       done()
 
   it 'handles 404', (done) ->
