@@ -11,6 +11,7 @@
     "level": "latest"
   },
   "devDependencies": {
+    "coffee-script": "latest",
     "chai": "latest",
     "mocha": "latest",
     "rimraf": "latest"
