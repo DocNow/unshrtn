@@ -16,6 +16,7 @@
     "rimraf": "latest"
   },
   "scripts": {
+    "start": "node unshrtn.js",
     "test": "mocha --colors --reporter spec --compilers coffee:coffee-script/register test.coffee"
   }
 }

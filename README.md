@@ -8,15 +8,17 @@ language of choice, which will save you the trouble of going out to the Web
 to look up the same short URL twice, which can be handy when you are 
 unshortening a bunch of URLs.
 
-    % node unshrtn.js &
+    % sudo docker build --tag unshrtn:dev .
 
-    % curl localhost:3000?url=https://bitly.com/4kb77v
+    % sudo docker run -p 3002:3000 -d -t unshrtn:dev
+
+    % curl localhost:3002?url=https://bitly.com/4kb77v
     {
       "short": "https://bitly.com/4kb77v",
       "long": "https://www.youtube.com/watch?v=oHg5SJYRHA0"
     }
 
-    % curl localhost:3000?url=http://example.com/never-gonna-give-you-up
+    % curl localhost:3002?url=http://example.com/never-gonna-give-you-up
     {
       "short": "http://example.com/never-gonna-give-you-up",
       "long": null,
