@@ -10,15 +10,15 @@ unshortening a bunch of URLs.
 
     % sudo docker build --tag unshrtn:dev .
 
-    % sudo docker run -p 3002:3000 -d -t unshrtn:dev
+    % sudo docker run -p 80:3000 -d -t unshrtn:dev
 
-    % curl localhost:3002?url=https://bitly.com/4kb77v
+    % curl localhost?url=https://bitly.com/4kb77v
     {
       "short": "https://bitly.com/4kb77v",
       "long": "https://www.youtube.com/watch?v=oHg5SJYRHA0"
     }
 
-    % curl localhost:3002?url=http://example.com/never-gonna-give-you-up
+    % curl localhost?url=http://example.com/never-gonna-give-you-up
     {
       "short": "http://example.com/never-gonna-give-you-up",
       "long": null,
