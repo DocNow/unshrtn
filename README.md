@@ -33,5 +33,3 @@ unshortening a bunch of URLs.
 
 [1]: https://code.google.com/p/leveldb/
 [2]: http://nodejs.org
-
-
