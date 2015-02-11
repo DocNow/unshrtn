@@ -27,7 +27,7 @@ describe 'unshrtn', ->
       done()
 
   it 'handles connection refused', (done) ->
-    u 'http://inkdroid.org:3000/', (err, long) ->
+    u 'http://inkdroid.org:666/', (err, long) ->
       assert.equal err, 'Error: connect ECONNREFUSED'
       assert.equal long, null
       done()
