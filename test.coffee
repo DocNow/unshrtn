@@ -32,3 +32,8 @@ describe 'unshrtn', ->
       assert.equal long, null
       done()
 
+  it 'handles fw.to', (done) ->
+    u 'http://fw.to/ixsPPtP', (err, long) ->
+      assert.equal long, 'http://www.theglobeandmail.com/globe-debate/fifty-years-in-canada-and-now-i-feel-like-a-second-class-citizen/article26691065/'
+      done()
+

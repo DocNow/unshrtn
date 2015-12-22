@@ -8,8 +8,6 @@ app.set 'json spaces', 2
 db = level('./unshrtndb')
 jar = request.jar()
 process.setMaxListeners(10)
-userAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.67 Safari/537.36"
-
 
 app.get "/", (req, res) ->
   short = req.query.url
@@ -58,7 +56,7 @@ unshorten = (short, next) ->
     url: short
     jar: jar
     timeout: 10000
-    headers: {"User-Agent": userAgent}
+    headers: {"User-Agent": userAgent short}
   sent = false
   try
     req = request opts
@@ -75,6 +73,18 @@ unshorten = (short, next) ->
   catch error
     if not sent
       next error, null
+
+
+userAgent = (url) ->
+
+  # most of the time we pretend to be a browser but fw.to doesn't give
+  # browsers a Location header and instead rely on META refresh and JavaScript
+  # to redirect browsers (sigh)
+
+  if url.match(/https?:\/\/fw\.to/)
+    return "ushrtn (https://github.com/edsu/unshrtn)"
+  else
+    return "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36"
 
 
 if require.main == module
