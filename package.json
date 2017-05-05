@@ -1,7 +1,7 @@
 {
   "name": "unshrtn",
   "description": "A leveldb backed URL unshortening microservice",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Ed Summers <ehs@pobox.com>",
   "main": "unshrtn",
   "repository": "https://github.com/edsu/shrtn",
@@ -17,7 +17,7 @@
     "rimraf": "latest"
   },
   "scripts": {
-    "start": "node unshrtn.js",
+    "start": "coffee unshrtn.coffee",
     "test": "mocha --colors --reporter spec --compilers coffee:coffee-script/register test.coffee"
   }
 }
