@@ -10,8 +10,8 @@ u = unshrtn.unshorten
 describe 'unshrtn', ->
 
   it 'unshortens', (done) ->
-    u 'http://www.inkdroid.org', (err, long) ->
-      assert.equal long, 'http://inkdroid.org/'
+    u 'http://inkdroid.org', (err, long) ->
+      assert.equal long, 'https://inkdroid.org/'
       assert.equal err, null
       done()
 
@@ -28,12 +28,12 @@ describe 'unshrtn', ->
 
   it 'handles connection refused', (done) ->
     u 'http://inkdroid.org:666/', (err, long) ->
-      assert.equal err, 'Error: connect ECONNREFUSED'
+      assert.match err, /Error: connect ECONNREFUSED/
       assert.equal long, null
       done()
 
   it 'handles fw.to', (done) ->
     u 'http://fw.to/ixsPPtP', (err, long) ->
-      assert.equal long, 'http://www.theglobeandmail.com/globe-debate/fifty-years-in-canada-and-now-i-feel-like-a-second-class-citizen/article26691065/'
+      assert.equal long, 'http://www.theglobeandmail.com/opinion/fifty-years-in-canada-and-now-i-feel-like-a-second-class-citizen/article26691065/'
       done()
 
