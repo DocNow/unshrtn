@@ -9,9 +9,10 @@ to look up the same short URL twice, which can be handy when you are
 unshortening a lot of URLs.
 
     % curl http://localhost:3000?url=https://bitly.com/4kb77v
-    {"short":
-    "https://bitly.com/4kb77v", "long":
-    "https://www.youtube.com/watch?v=oHg5SJYRHA0" }
+    {
+      "short": "https://bitly.com/4kb77v",
+      "long": "https://www.youtube.com/watch?v=oHg5SJYRHA0"
+    }
 
     % curl http://localhost:3000?url=http://example.com/never-gonna-give-you-up
     {
