@@ -34,6 +34,11 @@ describe 'unshrtn', ->
 
   it 'handles fw.to', (done) ->
     u 'http://fw.to/ixsPPtP', (err, long) ->
-      assert.equal long, 'http://www.theglobeandmail.com/opinion/fifty-years-in-canada-and-now-i-feel-like-a-second-class-citizen/article26691065/'
+      assert.equal long, 'https://www.theglobeandmail.com/opinion/fifty-years-in-canada-and-now-i-feel-like-a-second-class-citizen/article26691065/'
       done()
 
+  it 'handles canonical link', (done) ->
+    u 'https://www.nytimes.com/2017/05/23/opinion/mitch-landrieu-new-orleans-mayor-speech.html?smprod=nytcore-iphone&smid=nytcore-iphone-share&_r=0', (err, long) ->
+      assert.equal long, 'https://www.nytimes.com/2017/05/23/opinion/mitch-landrieu-new-orleans-mayor-speech.html'
+      done()
+  

@@ -1,3 +1,4 @@
+jsdom = require 'jsdom'
 level = require 'level'
 stream = require 'stream'
 express = require 'express'
@@ -61,12 +62,24 @@ unshorten = (short, next) ->
   try
     req = request opts
     req.on 'response', (resp) ->
-      sent = true
+      long = resp.request.uri.href
       if resp.statusCode >= 200 and resp.statusCode < 300
-        next null, resp.request.uri.href
+        content_type = resp.headers['content-type']
+        if content_type and content_type.match(/text\/x?html/)
+          html = []
+          resp.on 'data', (chunk) ->
+            html.push chunk
+          resp.on 'end', ->
+            if sent
+              return
+            sent = true
+            html = Buffer.concat(html).toString()
+            next null, canonical(long, html)
+        else
+          sent = true
+          next null, long
       else
-        next "HTTP #{resp.statusCode}", resp.request.uri.href
-      resp.on 'data', (chunk) ->
+        next "HTTP #{resp.statusCode}", long
     req.on 'error', (e) ->
       if not sent
         next String(e), null
@@ -85,6 +98,14 @@ userAgent = (url) ->
     return "ushrtn (https://github.com/edsu/unshrtn)"
   else
     return "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36"
+
+
+canonical = (url, html) ->
+  dom = new jsdom.JSDOM(html)
+  link = dom.window.document.querySelector('head link[rel=canonical]')
+  if link and link.attributes and link.attributes.href
+    url = link.attributes.href.value
+  return url
 
 
 if require.main == module
