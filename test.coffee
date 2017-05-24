@@ -34,7 +34,7 @@ describe 'unshrtn', ->
 
   it 'handles fw.to', (done) ->
     u 'http://fw.to/ixsPPtP', (err, long) ->
-      assert.equal long, 'https://www.theglobeandmail.com/opinion/fifty-years-in-canada-and-now-i-feel-like-a-second-class-citizen/article26691065/'
+      assert.match long, /www.theglobeandmail.com\/opinion\/fifty-years-in-canada-and-now-i-feel-like-a-second-class-citizen\/article26691065\//
       done()
 
   it 'handles canonical link', (done) ->
