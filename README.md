@@ -4,8 +4,9 @@
 
 unshrtn is a [leveldb][1] backed URL unshortening microservice. unshrtn
 remembers what it has already looked up so it can save you the trouble of
-keeping track of URLs when you are looking up a lot of them in a dataset of
-tweets lets say.
+keeping track of URLs when you are looking up a lot of them at one time and they
+haven't necessarily been de-duplicated. Also, unshrtn will look for canonical
+links in HTML responses.
 
     % curl http://localhost:3000?url=https://bitly.com/4kb77v
     {
