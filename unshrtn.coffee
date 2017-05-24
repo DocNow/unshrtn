@@ -71,21 +71,23 @@ unshorten = (short, next) ->
           resp.on 'data', (chunk) ->
             html.push chunk
           resp.on 'end', ->
-            if sent
-              return
-            sent = true
-            html = Buffer.concat(html).toString()
-            next null, canonical(long, html)
+            if not sent
+              sent = true
+              html = Buffer.concat(html).toString()
+              next null, canonical(long, html)
         else
           sent = true
           next null, long
       else
+        sent = true
         next "HTTP #{resp.statusCode}", long
     req.on 'error', (e) ->
       if not sent
+        sent = true
         next String(e), null
   catch error
     if not sent
+      sent = true
       next error, null
 
 
