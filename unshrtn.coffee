@@ -9,6 +9,7 @@ app.set 'json spaces', 2
 db = level('./unshrtndb')
 jar = request.jar()
 process.setMaxListeners(10)
+virtualConsole = new jsdom.VirtualConsole()
 
 app.get "/", (req, res) ->
   short = req.query.url
@@ -101,7 +102,7 @@ userAgent = (url) ->
 
 
 canonical = (url, html) ->
-  dom = new jsdom.JSDOM(html, url: url)
+  dom = new jsdom.JSDOM(html, url: url, virtualConsole: virtualConsole)
   link = dom.window.document.querySelector('head link[rel=canonical]')
   if link and link.attributes and link.attributes.href
     url = link.attributes.href.value
