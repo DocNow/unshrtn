@@ -102,7 +102,11 @@ userAgent = (url) ->
 
 
 canonical = (url, html) ->
-  dom = new jsdom.JSDOM(html, url: url, virtualConsole: virtualConsole)
+  try
+    dom = new jsdom.JSDOM(html, url: url, virtualConsole: virtualConsole)
+  catch e
+    console.log "jsdom error " + e
+    return url
   link = dom.window.document.querySelector('head link[rel=canonical]')
   if link and link.attributes and link.attributes.href
     url = link.attributes.href.value
