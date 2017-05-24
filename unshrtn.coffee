@@ -101,7 +101,7 @@ userAgent = (url) ->
 
 
 canonical = (url, html) ->
-  dom = new jsdom.JSDOM(html)
+  dom = new jsdom.JSDOM(html, url: url)
   link = dom.window.document.querySelector('head link[rel=canonical]')
   if link and link.attributes and link.attributes.href
     url = link.attributes.href.value
