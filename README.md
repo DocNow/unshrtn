@@ -2,11 +2,10 @@
 
 [![Build Status](https://secure.travis-ci.org/edsu/unshrtn.png)](http://travis-ci.org/edsu/unshrtn)
 
-unshrtn is a small [leveldb][1] backed URL unshortening microservice written
-for [node][2].  It's a web service you can use from your programming
-language of choice, which will save you the trouble of going out to the Web 
-to look up the same short URL twice, which can be handy when you are 
-unshortening a lot of URLs.
+unshrtn is a [leveldb][1] backed URL unshortening microservice. unshrtn
+remembers what it has already looked up so it can save you the trouble of
+keeping track of URLs when you are looking up a lot of them in a dataset of
+tweets lets say.
 
     % curl http://localhost:3000?url=https://bitly.com/4kb77v
     {
