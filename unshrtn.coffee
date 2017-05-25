@@ -58,6 +58,7 @@ unshorten = (short, next) ->
     url: short
     jar: jar
     timeout: 10000
+    strictSSL: false
     headers: {"User-Agent": userAgent short}
   sent = false
   try
@@ -84,7 +85,7 @@ unshorten = (short, next) ->
     req.on 'error', (e) ->
       if not sent
         sent = true
-        next String(e), null
+        next String(e), short
   catch error
     if not sent
       sent = true
