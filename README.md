@@ -23,7 +23,7 @@ haven't necessarily been de-duplicated. Also, unshrtn will look for
 
 The easiest way to get unshrtn up and running is with Docker. 
 
-    docker run -dp 3000:3000 edsu/unshrtn
+    docker run -p 3000:3000 edsu/unshrtn
 
 ## License:
 
