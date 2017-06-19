@@ -28,14 +28,16 @@ the unshortened URLs will have marketing tracking parameters removed.
       "long": "http://www.npr.org/2017/06/19/532601222/president-donald-trump-unreliable-narrator"
     }
 
-The easiest way to get unshrtn up and running is with Docker. 
+The easiest way to get unshrtn up and running is with [Docker]. 
 
     docker run -p 3000:3000 edsu/unshrtn
 
-You can also install it with npm:
+You can also install it with [npm]:
 
-		npm install -g unshrtn
+    npm install -g unshrtn
 
 [LevelDB]: https://code.google.com/p/leveldb/
 [Node]: https://nodejs.org
 [canonical links]: https://en.wikipedia.org/wiki/Canonical_link_element
+[Docker]: https://www.docker.com/
+[npm]: https://www.npmjs.com/
