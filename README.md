@@ -22,11 +22,11 @@ the unshortened URLs will have marketing tracking parameters removed.
       "error": "HTTP 404"
     }
 
-		% curl 'http://localhost:3000?url=http://www.npr.org/2017/06/19/532601222/president-donald-trump-unreliable-narrator?utm_source=twitter.com&utm_campaign=politics&utm_medium=social&utm_term=nprnews'
-		{
-			"short": "http://www.npr.org/2017/06/19/532601222/president-donald-trump-unreliable-narrator?utm_source=twitter.com",
-			"long": "http://www.npr.org/2017/06/19/532601222/president-donald-trump-unreliable-narrator"
-		}
+    % curl 'http://localhost:3000?url=http://www.npr.org/2017/06/19/532601222/president-donald-trump-unreliable-narrator?utm_source=twitter.com&utm_campaign=politics&utm_medium=social&utm_term=nprnews'
+    { 
+      "short": "http://www.npr.org/2017/06/19/532601222/president-donald-trump-unreliable-narrator?utm_source=twitter.com",
+      "long": "http://www.npr.org/2017/06/19/532601222/president-donald-trump-unreliable-narrator"
+    }
 
 The easiest way to get unshrtn up and running is with Docker. 
 
