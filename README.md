@@ -2,12 +2,13 @@
 
 [![Build Status](https://secure.travis-ci.org/edsu/unshrtn.png)](http://travis-ci.org/edsu/unshrtn)
 
-unshrtn is a [LevelDB] backed URL unshortening microservice written in [Node]
-for quick, asynchronous processing of requests. unshrtn remembers what it has
-already looked up so it can save you the trouble of keeping track of URLs when
-you are looking up a lot of them at one time and they haven't necessarily been
-de-duplicated. unshrtn will also look for [canonical links] in HTML responses so
-the unshortened URLs will have marketing tracking parameters removed.
+unshrtn is a [LevelDB] backed URL unshortening microservice written in
+[JavaScript] and [Node] for quick, asynchronous processing of requests. unshrtn
+remembers what it has already looked up so it can save you the trouble of
+keeping track of URLs when you are looking up a lot of them at one time and they
+haven't necessarily been de-duplicated. unshrtn will also look for [canonical
+links] in HTML responses so the unshortened URLs will have marketing tracking
+parameters removed.
 
     % curl http://localhost:3000?url=https://bitly.com/4kb77v
     {
@@ -37,6 +38,7 @@ You can also install it with [npm]:
     npm install -g unshrtn
 
 [LevelDB]: https://code.google.com/p/leveldb/
+[JavaScript]: https://en.wikipedia.org/wiki/JavaScript
 [Node]: https://nodejs.org
 [canonical links]: https://en.wikipedia.org/wiki/Canonical_link_element
 [Docker]: https://www.docker.com/
