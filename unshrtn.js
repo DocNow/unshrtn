@@ -1,3 +1,4 @@
+let URL = require('url')
 let jsdom = require('jsdom');
 let level = require('level');
 let stream = require('stream');
@@ -117,14 +118,14 @@ var unshorten = (short, next) => {
   }
 };
 
-
 var userAgent = (url) => {
 
-  // most of the time we pretend to be a browser but fw.to doesn't give
+  // most of the time we pretend to be a browser but fw.to & t.co don't give
   // browsers a Location header and instead rely on META refresh and JavaScript
-  // to redirect browsers (sigh)
-
-  if (url.match(/https?:\/\/fw\.to/)) {
+  // to redirect browsers (sigh) when they are told we are not a browser
+  // they give an HTTP redirect, which is nice
+  
+  if (['t.co', 'fw.to'].indexOf(URL.parse(url).hostname) != -1) {
     return "ushrtn (https://github.com/edsu/unshrtn)";
   } else {
     return "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36";

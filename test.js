@@ -47,11 +47,19 @@ describe('unshrtn', function() {
     })
   );
 
+  it('handles t.co', done => 
+    u('https://t.co/r2mIeyyY7t', function(err, long) {
+      assert.equal(long, 'http://www.newshub.co.nz/home/election/2017/08/patrick-gower-bill-english-in-shutdown-mode-over-todd-barclay-texts.html');
+      return done();
+    })
+  );
+
   return it('handles canonical link', done =>
     u('https://www.nytimes.com/2017/05/23/opinion/mitch-landrieu-new-orleans-mayor-speech.html?smprod=nytcore-iphone&smid=nytcore-iphone-share&_r=0', function(err, long) {
       assert.equal(long, 'https://www.nytimes.com/2017/05/23/opinion/mitch-landrieu-new-orleans-mayor-speech.html');
       return done();
     })
   );
+
 });
   
