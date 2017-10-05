@@ -6,28 +6,25 @@ unshrtn is a [LevelDB] backed URL unshortening microservice written in
 [JavaScript] and [Node] for quick, asynchronous processing of requests. unshrtn
 remembers what it has already looked up so it can save you the trouble of
 keeping track of URLs when you are looking up a lot of them at one time and they
-haven't necessarily been de-duplicated. unshrtn will also look for [canonical
-links] in HTML responses so the unshortened URLs will have marketing tracking
-parameters removed.
+haven't necessarily been de-duplicated.
 
-    % curl http://localhost:3000?url=https://bitly.com/4kb77v
-    {
-      "short": "https://bitly.com/4kb77v",
-      "long": "https://www.youtube.com/watch?v=oHg5SJYRHA0"
-    }
+In addition to returning the unshortened URL unshrtn will also return 
+metadata for the page including:
 
-    % curl http://localhost:3000?url=http://example.com/never-gonna-give-you-up
-    {
-      "short": "http://example.com/never-gonna-give-you-up",
-      "long": null,
-      "error": "HTTP 404"
-    }
+* final HTTP status code
+* final HTTP content type
+* a canonical link for HTML responses
+* a title for HTML responses
 
-    % curl 'http://localhost:3000?url=http://www.npr.org/2017/06/19/532601222/president-donald-trump-unreliable-narrator?utm_source=twitter.com&utm_campaign=politics&utm_medium=social&utm_term=nprnews'
-    { 
-      "short": "http://www.npr.org/2017/06/19/532601222/president-donald-trump-unreliable-narrator?utm_source=twitter.com",
-      "long": "http://www.npr.org/2017/06/19/532601222/president-donald-trump-unreliable-narrator"
-    }
+		% curl http://localhost:3000?url=https://bitly.com/4kb77v
+		{
+			"short": "https://bitly.com/4kb77v",
+			"long": "https://www.youtube.com/watch?v=oHg5SJYRHA0",
+			"canonical": "https://www.youtube.com/watch?v=oHg5SJYRHA0",
+			"status": 200,
+			"content_type": "text/html; charset=utf-8",
+			"title": "RickRoll'D - YouTube"
+		}
 
 The easiest way to get unshrtn up and running is with [Docker]. 
 

@@ -15,31 +15,21 @@ let virtualConsole = new jsdom.VirtualConsole();
 app.get("/", (req, res) => {
   let short = req.query.url;
   if (short) {
-    return lookup(short, (error, long) => {
+    return lookup(short, (error, result) => {
       if (error) {
-        console.log(`Error: ${error} - ${short} -> ${long}`);
+        console.log(`Error: ${error} - ${result.short} -> ${result.long}`);
         try {
-          return res.json({
-            short,
-            long,
-            error
-          });
+          return res.json({...result, error})
         } catch (error1) {
           error = error1;
           return console.log(`unable to send response: ${error}`);
         }
       } else {
-        console.log(`${short} -> ${long}`);
-        return res.json({
-          short,
-          long
-        });
+        return res.json(result)
       }
     });
   } else {
     return res.status(400).json({
-      short: null,
-      long: null,
       error: "please supply url query parameter"
     });
   }
@@ -52,18 +42,19 @@ var lookup = (short, next) => {
     return;
   }
   short = String(short);
-  return db.get(short, (err, long) => {
+  return db.get(short, (err, s) => {
     if (!err) {
-      return next(null, long);
+      return next(null, JSON.parse(s));
     } else {
-      return unshorten(short, (err, long) => {
+      return unshorten(short, (err, result) => {
         if (!err) {
-          db.put(short, long, (e) => {});
-          if (err) {
-            console.log("unable to write to leveldb:", e);
-          }
+          db.put(short, JSON.stringify(result), (e) => {
+            if (e) {
+              console.log("unable to write to leveldb:", e);
+            }
+          })
         }
-        return next(err, long);
+        return next(err, result);
       });
     }
   });
@@ -79,48 +70,54 @@ var unshorten = (short, next) => {
     headers: {"User-Agent": userAgent(short)}
   };
   let sent = false;
+  let result = {
+    short: short,
+    long: short,
+    canonical: null,
+    status: null,
+    content_type: null,
+    title: null
+  }
   try {
     let req = request(opts);
     req.on('response', (resp) => {
-      let long = resp.request.uri.href;
-      if ((resp.statusCode >= 200) && (resp.statusCode < 300)) {
-        let content_type = resp.headers['content-type'];
-        if (content_type && content_type.match(/text\/x?html/)) {
-          let html = [];
-          resp.on('data', chunk => html.push(chunk));
-          return resp.on('end', () => {
-            if (!sent) {
-              sent = true;
-              html = Buffer.concat(html).toString();
-              return next(null, canonical(long, html));
-            }
-          });
-        } else {
-          sent = true;
-          return next(null, long);
-        }
+      result.long = resp.request.uri.href;
+      result.status = resp.statusCode
+      result.content_type = resp.headers['content-type'];
+      if (result.content_type && result.content_type.match(/text\/x?html/)) {
+        let html = [];
+        resp.on('data', chunk => html.push(chunk));
+        return resp.on('end', () => {
+          if (!sent) {
+            sent = true;
+            html = Buffer.concat(html).toString();
+            addHtmlMetadata(result, html)
+            return next(null, result);
+          }
+        });
       } else {
         sent = true;
-        return next(`HTTP ${resp.statusCode}`, long);
+        return next(null, result);
       }
     });
     return req.on('error', (e) => {
       if (!sent) {
         sent = true;
-        return next(String(e), short);
+        return next(String(e), result);
       }
     });
   } catch (error) {
     if (!sent) {
       sent = true;
-      return next(error, null);
+      return next(String(error), result);
     }
   }
 };
 
+
 var userAgent = (url) => {
 
-  // most of the time we pretend to be a browser but fw.to & t.co don't give
+  // most of the time we pretend to be a browser but some services don't give
   // browsers a Location header and instead rely on META refresh and JavaScript
   // to redirect browsers (sigh) when they are told we are not a browser
   // they give an HTTP redirect, which is nice
@@ -133,19 +130,26 @@ var userAgent = (url) => {
 };
 
 
-var canonical = (url, html) => {
+var addHtmlMetadata = (result, html) => {
   let dom;
   try {
-    dom = new jsdom.JSDOM(html, {url, virtualConsole});
+    dom = new jsdom.JSDOM(html, {url: result.long, virtualConsole});
   } catch (e) {
     console.log(`jsdom error ${e}`);
-    return url;
+    return result;
   }
+
   let link = dom.window.document.querySelector('head link[rel=canonical]');
   if (link && link.attributes && link.attributes.href) {
-    url = link.attributes.href.value;
+    result.canonical = link.attributes.href.value;
   }
-  return url;
+
+  let title = dom.window.document.querySelector('head title');
+  if (title) {
+    result.title = title.text;
+  }
+
+  return result;
 };
 
 
