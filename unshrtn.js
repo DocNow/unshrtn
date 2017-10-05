@@ -19,7 +19,8 @@ app.get("/", (req, res) => {
       if (error) {
         console.log(`Error: ${error} - ${result.short} -> ${result.long}`);
         try {
-          return res.json({...result, error})
+          res.error = error
+          return res.json(res)
         } catch (error1) {
           error = error1;
           return console.log(`unable to send response: ${error}`);
