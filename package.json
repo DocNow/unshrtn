@@ -1,7 +1,7 @@
 {
   "name": "unshrtn",
   "description": "A leveldb backed URL unshortening microservice",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "license": "MIT",
   "author": "Ed Summers <ehs@pobox.com>",
   "main": "unshrtn",
