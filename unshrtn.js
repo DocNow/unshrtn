@@ -12,25 +12,26 @@ let jar = request.jar();
 process.setMaxListeners(10);
 let virtualConsole = new jsdom.VirtualConsole();
 
-app.get("/", (req, res) => {
+app.get("/", (req, resp) => {
   let short = req.query.url;
   if (short) {
     return lookup(short, (error, result) => {
       if (error) {
         console.log(`Error: ${error} - ${result.short} -> ${result.long}`);
         try {
-          res.error = error
-          return res.json(res)
+          result.error = error
+          return resp.json(result)
         } catch (error1) {
           error = error1;
           return console.log(`unable to send response: ${error}`);
         }
       } else {
-        return res.json(result)
+        console.log(`${result.short} -> ${result.long}`)
+        return resp.json(result)
       }
     });
   } else {
-    return res.status(400).json({
+    return resp.status(400).json({
       error: "please supply url query parameter"
     });
   }
