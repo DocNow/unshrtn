@@ -4,7 +4,6 @@ let level = require('level');
 let stream = require('stream');
 let express = require('express');
 let request = require('request');
-let urljoin = require('url-join');
 
 let app = express();
 app.set('json spaces', 2);
