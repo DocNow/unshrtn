@@ -10,7 +10,8 @@
     "express": "latest",
     "jsdom": "^11.0.0",
     "level": "latest",
-    "request": "latest"
+    "request": "latest",
+    "url-join": "^2.0.2"
   },
   "devDependencies": {
     "chai": "latest",

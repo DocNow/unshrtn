@@ -4,6 +4,7 @@ let level = require('level');
 let stream = require('stream');
 let express = require('express');
 let request = require('request');
+let urljoin = require('url-join');
 
 let app = express();
 app.set('json spaces', 2);
@@ -143,12 +144,18 @@ var addHtmlMetadata = (result, html) => {
 
   let link = dom.window.document.querySelector('head link[rel=canonical]');
   if (link && link.attributes && link.attributes.href) {
-    result.canonical = link.attributes.href.value;
+    let href = link.attributes.href.value;
+    let uri = URL.parse(href);
+    if (uri.host) {
+      result.canonical = href
+    } else {
+      result.canonical = new URL.URL(link.attributes.href.value, result.long);
+    }
   }
 
   let title = dom.window.document.querySelector('head title');
   if (title) {
-    result.title = title.text;
+    result.title = title.text.replace(/\n/g, ' ').replace(/ +/g, ' ').trim();
   }
 
   return result;
