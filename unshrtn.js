@@ -14,23 +14,29 @@ let virtualConsole = new jsdom.VirtualConsole();
 
 app.get("/", (req, resp) => {
   let short = req.query.url;
+  let sent = false;
   if (short) {
     return lookup(short, (error, result) => {
       if (error) {
         console.log(`Error: ${error} - ${result.short} -> ${result.long}`);
         try {
           result.error = error
-          return resp.json(result)
+          if (! sent) {
+            sent = true;
+            return resp.json(result);
+          }
         } catch (error1) {
           error = error1;
           return console.log(`unable to send response: ${error}`);
         }
-      } else {
+      } else if (! sent) {
+        sent = true;
         console.log(`${result.short} -> ${result.long}`)
-        return resp.json(result)
+        return resp.json(result);
       }
     });
-  } else {
+  } else if (! sent) {
+    sent = true;
     return resp.status(400).json({
       error: "please supply url query parameter"
     });
