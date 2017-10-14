@@ -5,6 +5,10 @@
   "license": "MIT",
   "main": "unshrtn",
 
+  "engines": {
+    "node": ">= 6"
+  },
+
   "author": {
     "name": "Ed Summers",
     "email": "ehs@pobox.com",
