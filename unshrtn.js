@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 let URL = require('url')
 let jsdom = require('jsdom');
 let level = require('level');
