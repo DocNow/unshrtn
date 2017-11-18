@@ -1,6 +1,6 @@
 # unshrtn
 
-[![Build Status](https://secure.travis-ci.org/DocNow/unshrtn.png)](http://travis-ci.org/edsu/unshrtn)
+[![Build Status](https://secure.travis-ci.org/DocNow/unshrtn.png)](http://travis-ci.org/DocNow/unshrtn)
 
 *unshrtn* is a [LevelDB] backed URL unshortening microservice written in
 [JavaScript] and [Node] for quick, asynchronous processing of requests.
