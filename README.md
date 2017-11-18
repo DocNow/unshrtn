@@ -6,7 +6,8 @@ unshrtn is a [LevelDB] backed URL unshortening microservice written in
 [JavaScript] and [Node] for quick, asynchronous processing of requests. unshrtn
 remembers what it has already looked up so it can save you the trouble of
 keeping track of URLs when you are looking up a lot of them at one time and they
-haven't necessarily been de-duplicated.
+haven't necessarily been de-duplicated. It uses the [metaweb] library to do the
+lookups. 
 
 In addition to returning the unshortened URL unshrtn will also return 
 metadata for the page including:
@@ -40,3 +41,4 @@ You can also install it with [npm]:
 [canonical links]: https://en.wikipedia.org/wiki/Canonical_link_element
 [Docker]: https://www.docker.com/
 [npm]: https://www.npmjs.com/
+[metaweb]: https://github.com/edsu/metaweb

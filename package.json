@@ -1,45 +1,40 @@
 {
   "name": "unshrtn",
   "description": "A leveldb backed URL unshortening microservice",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "license": "MIT",
   "main": "unshrtn",
-
   "engines": {
     "node": ">= 6"
   },
-
   "author": {
     "name": "Ed Summers",
     "email": "ehs@pobox.com",
     "url": "https://inkdroid.org"
   },
-
   "repository": {
     "type": "git",
     "url": "https://github.com/edsu/shrtn"
   },
-
   "dependencies": {
-    "express": "latest",
+    "express": "^4.16.2",
     "jsdom": "^11.0.0",
-    "level": "latest",
-    "request": "latest"
+    "level": "^2.0.1",
+    "metaweb": "0.0.4",
+    "request": "latest",
+    "supertest": "^3.0.0",
+    "winston": "^2.4.0"
   },
-
   "devDependencies": {
     "chai": "latest",
-    "mocha": "latest",
+    "mocha": "^4.0.1",
     "rimraf": "latest"
   },
-
   "scripts": {
     "start": "node unshrtn.js",
     "test": "mocha --colors --reporter spec test.js"
   },
-
   "bin": {
     "unshrtn": "unshrtn.js"
   }
-
 }
