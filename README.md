@@ -31,7 +31,7 @@ for the page including:
 
 The easiest way to get *unshrtn* up and running is with [Docker]. 
 
-    docker run -p 3000:3000 edsu/unshrtn
+    docker run -p 3000:3000 docnow/unshrtn
 
 You can also install it with [npm]:
 
