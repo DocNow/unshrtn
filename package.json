@@ -17,9 +17,10 @@
     "url": "https://github.com/edsu/shrtn"
   },
   "dependencies": {
+    "commander": "^2.15.1",
     "express": "^4.16.2",
     "jsdom": "^11.0.0",
-    "level": "^2.0.1",
+    "level": "^4.0.0",
     "metaweb": "0.0.4",
     "request": "latest",
     "supertest": "^3.0.0",
