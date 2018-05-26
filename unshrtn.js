@@ -1,13 +1,16 @@
 #!/usr/bin/env node
 
-let URL = require('url')
-let jsdom = require('jsdom')
-let level = require('level')
-let stream = require('stream')
-let express = require('express')
-let request = require('request')
-let metaweb = require('metaweb')
-let winston = require('winston')
+const fs = require('fs')
+const URL = require('url')
+const jsdom = require('jsdom')
+const level = require('level')
+const stream = require('stream')
+const express = require('express')
+const request = require('request')
+const metaweb = require('metaweb')
+const winston = require('winston')
+const program = require('commander')
+const readline = require('readline')
 
 const logger = new winston.Logger()
 const env = process.env.NODE_ENV
@@ -22,10 +25,11 @@ if (env === 'development') {
     logger.add(winston.transports.File, {filename: logFile})
 }
 
-let app = express()
+const app = express()
 app.set('json spaces', 2)
 
-let db = level('./unshrtndb')
+// this is a global variable that is set in openDb
+let db = null
 
 process.setMaxListeners(10)
 
@@ -60,12 +64,12 @@ app.get("/", (req, resp) => {
   }
 })
 
-var lookup = (url, next) => {
+const lookup = (url, next) => {
   if (url === null) {
     next("url cannot be null", null)
     return
   }
-  short = String(url)
+  const short = String(url)
   return db.get(url, (err, s) => {
     if (!err) {
       return next(null, JSON.parse(s))
@@ -90,8 +94,56 @@ var lookup = (url, next) => {
   })
 }
 
-if (require.main === module) {
-  app.listen(3000)
+const dump = (db, path) => {
+  let out = path ? fs.createWriteStream(path) : process.stdout
+  db.createReadStream()
+    .on('data', data => {
+      row = [data.key, JSON.parse(data.value)] 
+      out.write(JSON.stringify(row) + "\n")
+      if (path) {
+        console.warn(`dumped ${data.key}`)
+      }
+    })
 }
 
-exports.app = app 
+const load = (db, path) => {
+  let input = path ? fs.createReadStream(path) : process.stdin
+  var lineReader = readline.createInterface({input: input})
+  lineReader.on('line', (line) => {
+    row = JSON.parse(line)
+    db.put(row[0], JSON.stringify(row[1]))
+    console.warn(`loaded ${row[0]}`)
+  })
+}
+
+const openDb = path => {
+  db = level(path || './unshrtndb')
+}
+
+if (require.main === module) {
+
+  program
+    .version('0.0.7')
+    .option('-d, --db <db>', 'leveldb path')
+    .command('start', 'start unshrtn')
+    .action(cmd => {
+      console.log('start ' + cmd.db)
+    })
+    .parse(process.argv)
+
+  const command = process.argv[2] || 'start'
+  const dbPath = process.argv[3] || './unshrtndb' 
+  const filePath = process.argv[4]
+
+  openDb(dbPath)
+
+  if (command === 'dump') {
+    dump(db, filePath)
+  } else if (command === 'load') {
+    load(db, filePath)
+  } else {
+    app.listen(3000)
+  }
+}
+
+module.exports = {app, openDb}

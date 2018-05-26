@@ -2,18 +2,18 @@ const rimraf = require('rimraf')
 const request = require('supertest')
 
 const { equal } = require('assert')
-const { app } = require('./unshrtn')
-
+const { app, openDb } = require('./unshrtn')
 
 describe('app', function() {
 
   this.timeout(10000)
 
   beforeEach(function(done) {
-    rimraf('./unshortendb', done)
+    rimraf('./testdb', done)
   })
 
   it('ushortens', function(done) {
+    openDb('./testdb')
     request(app)
       .get('/?url=https://bitly.com/4kb77v')
       .expect('Content-Type', /json/)
