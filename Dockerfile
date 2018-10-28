@@ -1,9 +1,8 @@
 FROM node:latest
-RUN mkdir /code
-WORKDIR /code
-ADD . /code
 VOLUME /data
-WORKDIR /code
 EXPOSE 3000/tcp
-RUN npm install
-ENTRYPOINT ["node", "unshrtn.js", "start", "/data"]
+RUN mkdir /unshrtn
+WORKDIR /unshrtn
+RUN npm install unshrtn
+VOLUME /data
+ENTRYPOINT ["node_modules/.bin/unshrtn", "start", "--database", "/data/unshrtn.db", "--port", "3000", "--host", "0.0.0.0"]
