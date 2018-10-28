@@ -1,0 +1,27 @@
+#!/usr/bin/env node
+
+const fs = require('fs')
+const level = require('level')
+const program = require('commander')
+
+database = null
+
+program
+  .arguments('<database>')
+  .action((arg1) => {
+    database = arg1
+  })
+  .parse(process.argv)
+
+if (database == null) {
+  console.error('usage: unshrtn dump <database>')
+  process.exit(1)
+}
+
+const db = level(database)
+
+db.createReadStream()
+  .on('data', data => {
+    row = [data.key, JSON.parse(data.value)]
+    process.stdout.write(JSON.stringify(row) + "\n")
+  })

@@ -1,0 +1,29 @@
+#!/usr/bin/env node
+
+const fs = require('fs')
+const level = require('level')
+const program = require('commander')
+const readline = require('readline')
+
+let database = null
+
+program
+  .arguments('<database>')
+  .action((arg1) => {
+    database = arg1
+  })
+  .parse(process.argv)
+
+if (database == null) {
+  console.error('usage: unshrtn load <database>')
+  process.exit(1)
+}
+
+const db = level(database)
+
+var lineReader = readline.createInterface({input: process.stdin})
+lineReader.on('line', (line) => {
+  row = JSON.parse(line)
+  db.put(row[0], JSON.stringify(row[1]))
+  console.warn(`loaded ${row[0]}`)
+})

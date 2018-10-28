@@ -24,7 +24,7 @@
     "metaweb": "0.0.7",
     "request": "^2.88.0",
     "supertest": "^3.3.0",
-    "winston": "^2.4.4"
+    "winston": "^3.1.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
@@ -32,10 +32,14 @@
     "rimraf": "latest"
   },
   "scripts": {
-    "start": "node unshrtn.js",
+    "start": "unshrtn",
     "test": "mocha --colors --reporter spec test.js"
   },
   "bin": {
-    "unshrtn": "unshrtn.js"
+    "unshrtn": "commands/unshrtn",
+    "unshrtn-dump": "commands/unshrtn-dump",
+    "unshrtn-get": "commands/unshrtn-get",
+    "unshrtn-load": "commands/unshrtn-load",
+    "unshrtn-start": "commands/unshrtn-start"
   }
 }

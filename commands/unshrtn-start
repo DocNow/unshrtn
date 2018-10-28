@@ -1,0 +1,37 @@
+#!/usr/bin/env node
+
+const program = require('commander')
+const winston = require('winston')
+const { app, openDb, log } = require('..')
+
+program
+  .option('-h, --host <host>', 'bind to host', 'localhost')
+  .option('-p, --port <port>', 'listen on port', 3000)
+  .option('-d, --database <database>', 'database path', 'unshrtn.db')
+  .option('-m, --daemon', 'daemonize', false)
+  .option('-l, --log <file>', 'write log to file')
+  .option('-v, --verbose', 'verbosity of logs', false)
+  .parse(process.argv)
+
+const level = program.verbose ? 'debug' : 'info'
+
+if (program.log) {
+  log.add(
+    new winston.transports.File({
+      filename: program.log,
+      level: level
+    })
+  )
+} else {
+  log.add(
+    new winston.transports.Console({
+      level: level,
+      format: winston.format.simple()
+    })
+  )
+}
+
+openDb(program.database)
+app.listen(program.port, program.host, () => {
+  log.info('started http://' + program.host + ':' + program.port)
+})

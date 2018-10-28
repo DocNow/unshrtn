@@ -1,3 +1,4 @@
 testdb
-unshrtndb
+unshrtn.db
 node_modules
+*.log

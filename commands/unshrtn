@@ -1,0 +1,11 @@
+#!/usr/bin/env node
+
+const program = require('commander')
+
+program
+  .version('0.0.7')
+  .command('start', 'start service', {isDefault: true})
+  .command('load <filename>', 'load a json dump file')
+  .command('dump [database]', 'dump database as json')
+  .command('get <url>', 'unshorten a specific url')
+  .parse(process.argv)

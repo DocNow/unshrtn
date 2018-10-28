@@ -2,7 +2,7 @@ const rimraf = require('rimraf')
 const request = require('supertest')
 
 const { equal } = require('assert')
-const { app, openDb } = require('./unshrtn')
+const { app, openDb } = require('./index')
 
 describe('app', function() {
 

@@ -1,0 +1,22 @@
+#!/usr/bin/env node
+
+const program = require('commander')
+const { openDb, lookup } = require('..')
+
+let url = null
+
+program
+  .option('-d, --database', 'database to use', './unshrtn.db')
+  .arguments('<url>')
+  .action((u) => {url = u})
+  .parse(process.argv)
+
+if (url == null) {
+  console.error('please supply url to unshorten')
+  process.exit(1)
+} else {
+  openDb(program.database)
+  lookup(url, (err, result) => {
+    console.log(JSON.stringify(result, null, 2))
+  })
+}
