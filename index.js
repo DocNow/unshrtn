@@ -1,13 +1,9 @@
-#!/usr/bin/env node
-
 const fs = require('fs')
 const URL = require('url')
-const jsdom = require('jsdom')
 const level = require('level')
 const stream = require('stream')
 const express = require('express')
 const winston = require('winston')
-const request = require('request')
 const metaweb = require('metaweb')
 const program = require('commander')
 const readline = require('readline')
