@@ -1,7 +1,7 @@
 {
   "name": "unshrtn",
   "description": "A leveldb backed URL unshortening microservice",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "license": "MIT",
   "main": "unshrtn",
   "engines": {
@@ -19,7 +19,7 @@
   "dependencies": {
     "commander": "^2.19.0",
     "express": "^4.16.4",
-    "level": "^4.0.0",
+    "level": "^5.0.0",
     "metaweb": "0.0.7",
     "supertest": "^3.3.0",
     "winston": "^3.1.0"
