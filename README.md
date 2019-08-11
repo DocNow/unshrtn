@@ -51,7 +51,7 @@ directory. However you can control this with the *--database* option:
 
     % unshrt start --database /var/unshrtn/unshrtn.db
 
-You can dump the database as line oriented JSON and load it againif you want to
+You can dump the database as line oriented JSON and load it again if you want to
 back it up or move it around:
 
     % unshrtn dump /path/to/datbase > backup.jsonl
