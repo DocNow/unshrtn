@@ -1,7 +1,7 @@
 const rimraf = require('rimraf')
 const request = require('supertest')
 
-const { equal } = require('assert')
+const { strictEqual } = require('assert')
 const { app, openDb } = require('./index')
 
 describe('app', function() {
@@ -15,12 +15,12 @@ describe('app', function() {
   it('ushortens', function(done) {
     openDb('./testdb')
     request(app)
-      .get('/?url=https://bitly.com/4kb77v')
+      .get('/?url=https://bit.ly/348J1DN')
       .expect('Content-Type', /json/)
       .end(function(err, res) {
-        equal(res.body.short, 'https://bitly.com/4kb77v')
-        equal(res.body.long, 'https://www.youtube.com/watch?v=oHg5SJYRHA0')
-        equal(res.body.title, "RickRoll'D - YouTube")
+        strictEqual(res.body.short, 'https://bit.ly/348J1DN')
+        strictEqual(res.body.long, 'https://www.youtube.com/watch?v=oHg5SJYRHA0')
+        strictEqual(res.body.title, "RickRoll'D")
         done()
       });
   })

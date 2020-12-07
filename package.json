@@ -1,7 +1,7 @@
 {
   "name": "unshrtn",
   "description": "A leveldb backed URL unshortening microservice",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "license": "MIT",
   "main": "unshrtn",
   "engines": {
@@ -17,12 +17,12 @@
     "url": "https://github.com/edsu/shrtn"
   },
   "dependencies": {
-    "commander": "^2.19.0",
-    "express": "^4.16.4",
+    "commander": "^2.20.3",
+    "express": "^4.17.1",
     "level": "^5.0.0",
-    "metaweb": "0.0.7",
+    "metaweb": "0.0.9",
     "supertest": "^3.3.0",
-    "winston": "^3.1.0"
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "chai": "^4.2.0",
