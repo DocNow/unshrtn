@@ -1,9 +1,9 @@
 {
   "name": "unshrtn",
   "description": "A leveldb backed URL unshortening microservice",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "license": "MIT",
-  "main": "unshrtn",
+  "main": "index",
   "engines": {
     "node": ">= 6"
   },
@@ -30,7 +30,7 @@
     "rimraf": "latest"
   },
   "scripts": {
-    "start": "unshrtn",
+    "start": "node commands/unshrtn",
     "test": "mocha --colors --reporter spec test.js"
   },
   "bin": {

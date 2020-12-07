@@ -11,9 +11,9 @@ they haven't necessarily been de-duplicated.
 *unshrtn* uses the [metaweb] library to do the lookups, which means that in addition to returning the unshortened URL you will also get some potentially useful metadata if the response happens to be HTML:
 
 ```
-% curl http://localhost:3000?url=https://bitly.com/4kb77v
+% curl http://localhost:3000?url=https://bit.ly/348J1DN
 {
-  "short": "https://bitly.com/4kb77v",
+  "short": "https://bit.ly/348J1DN",
   "long": "https://www.youtube.com/watch?v=oHg5SJYRHA0",
   "canonical": "https://www.youtube.com/watch?v=oHg5SJYRHA0",
   "status": 200,
