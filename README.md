@@ -29,10 +29,14 @@ they haven't necessarily been de-duplicated.
 Probably the easiest way to get *unshrtn* up and running is with [Docker].
 
     docker run -p 3000:3000 docnow/unshrtn
+    Status: Downloaded newer image for docnow/unshrtn:latest
+    info: started http://0.0.0.0:3000
 
 You can also install it with [npm]:
 
     % npm install -g unshrtn
+    % unshrtn
+    info: started http://0.0.0.0:3000
 
 ## Usage
 
